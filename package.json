@@ -1,0 +1,20 @@
+{
+  "name": "air_bnb_clone_integrity",
+  "version": "1.0.0",
+  "description": "Cloning Airbnb with Python, Django, Tailwind and more",
+  "devDependencies": {
+    "autoprefixer": "^10.2.3",
+    "gulp": "^4.0.2",
+    "gulp-csso": "^4.0.1",
+    "gulp-postcss": "^9.0.0",
+    "gulp-sass": "^4.1.0",
+    "node-sass": "^5.0.0",
+    "tailwindcss": "^2.0.2"
+  },
+  "dependencies": {
+    "postcss": "^8.2.4"
+  },
+  "scripts": {
+    "css": "gulp"
+  }
+}

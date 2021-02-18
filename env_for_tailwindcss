@@ -1,0 +1,28 @@
+# 강의 19.0
+    tailwind css : extension 에서 tailwind css intellisense 설치 (자동 완성 기능)
+
+# 강의 19.1
+    1. console창에서  npm init 실행 (이를 위해서는 node.js와 gulp 12.13.0 버전이 설치돼 있어야 함)
+    2. npm i gulp gulp-postcss gulp-sass gulp-csso node-sass -D  (-D:developer로서 설치)
+    3. npm install tailwindcss -D
+    4. npx tailwind init : tailwind.config.js 생성
+        혹시 이런 에러 나시는 분들 계시면.. :
+
+        C:\Users\david\Desktop\airbnb-clone>npx tailwind init
+        internal/modules/cjs/loader.js:797
+        throw err;
+        ^
+
+        Error: Cannot find module 'autoprefixer'
+
+        → 해결 방법 (다음 커맨드 입력해주세요) :
+        npm uninstall tailwindcss postcss autoprefixer
+
+        npm install tailwindcss@latest postcss@latest autoprefixer@latest
+
+        --> 위 두 줄 해주고 npx tailwind init 다시 실행
+    5. npm i autoprefixer -D
+
+# 강의 20.3
+    1. scss 수정하고 npm run css 해도 변경사항이 적용 안될 경우
+     - 캐시 등 인터넷 기록 삭제하고 해보기
