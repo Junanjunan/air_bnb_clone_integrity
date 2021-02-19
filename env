@@ -94,3 +94,5 @@
     EC2로 가서 실행중인 인스턴스 확인
 
     Elastic Beanstalk 가서 사이트 열어보니 502 Bad Gateway라고 뜸
+
+    eb logs 확인해서 보니 pywin32, pypiwin32 뭐라고 하면서 에러가 발생해서, pipfile.lock이랑 requirements
