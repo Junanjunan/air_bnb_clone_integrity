@@ -84,11 +84,13 @@
 
 
 ** 내가 아마존에 배포한 방식 **
-eb init
-    Application Name: "air_bnb_clone_integrity"
+    eb init
+        Application Name: "air_bnb_clone_integrity"
 
-eb create airbnb-clone 해주었음
+    eb create airbnb-clone 해주었음
 
-(여기서 확인?? https://ap-northeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-northeast-2#/application/overview?applicationName=air_bnb_clone_integrity : 좀 이상...)
+    (여기서 확인?? https://ap-northeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-northeast-2#/application/overview?applicationName=air_bnb_clone_integrity : 좀 이상...)
 
-EC2로 가서 실행중인 인스턴스 확인
+    EC2로 가서 실행중인 인스턴스 확인
+
+    Elastic Beanstalk 가서 사이트 열어보니 502 Bad Gateway라고 뜸
