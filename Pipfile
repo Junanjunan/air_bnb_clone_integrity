@@ -11,7 +11,6 @@ django-seed = "*"
 requests = "*"
 pillow = "*"
 awsebcli = "*"
-pipenv-to-requirements = "*"
 
 [dev-packages]
 
