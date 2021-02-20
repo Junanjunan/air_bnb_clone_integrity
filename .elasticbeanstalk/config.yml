@@ -4,6 +4,7 @@ branch-defaults:
     group_suffix: null
   main:
     environment: airbnb-clone
+    group_suffix: null
 environment-defaults:
   airbnb-clone:
     branch: null
