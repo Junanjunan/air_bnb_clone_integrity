@@ -1,1 +1,7 @@
 1. eb init (.elasticbeanstalk 삭제하고 다시 eb init 하니 재설정 가능했음)
+
+2. eb deploy 했더니 ERROR: This branch does not have a default environment. You must either specify an environment by typing "eb deploy my-env-name" or set a default environment by typing "eb use my-env-name".
+
+3. eb create 먼저 해주었음
+    ERROR   [Instance: i-0684f146b291b7920] Command failed on instance. Return code: 1 Output: Yum does not have postgresql-devel available for installation. 
+    Package listed in EBExtension failed to install. For more detail, check /var/log/eb-activity.log using console or EB CLI.

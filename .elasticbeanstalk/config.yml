@@ -1,6 +1,6 @@
 branch-defaults:
   main:
-    environment: null
+    environment: air-bnb-clone-integrity-dev
 global:
   application_name: air_bnb_clone_integrity
   branch: null
