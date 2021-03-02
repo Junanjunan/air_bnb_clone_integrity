@@ -4,4 +4,83 @@
 
 3. eb create 먼저 해주었음
     ERROR   [Instance: i-0684f146b291b7920] Command failed on instance. Return code: 1 Output: Yum does not have postgresql-devel available for installation. 
-    Package listed in EBExtension failed to install. For more detail, check /var/log/eb-activity.log using console or EB CLI.
+            Package listed in EBExtension failed to install. For more detail, check /var/log/eb-activity.log using console or EB CLI.
+    INFO    Command execution completed on all instances. Summary: [Successful: 0, Failed: 1].
+    ERROR   Create environment operation is complete, but with errors. For more information, see troubleshooting documentation.
+
+4. .ebextensions/packages.config/에서
+    packages:
+      yum:
+        postgresql-devel: []
+    위와 같이 되있는걸 96을 추가하였음
+    packages:
+      yum:
+        postgresql96-devel: []
+
+    그리고 eb deploy 했더니 다음과 같은 에러 발생
+    2021-03-02 06:12:14    ERROR   Your requirements.txt is invalid. Snapshot your logs for details.
+    2021-03-02 06:12:18    ERROR   [Instance: i-0684f146b291b7920] Command failed on instance. Return code: 1 Output: (TRUNCATED)...)
+    File "/usr/lib64/python2.7/subprocess.py", line 190, in check_call
+        raise CalledProcessError(retcode, cmd)
+    CalledProcessError: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1.
+    Hook /opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py failed. For more detail, check /var/log/eb-activity.log using console or EB CLI.
+    2021-03-02 06:12:18    INFO    Command execution completed on all instances. Summary: [Successful: 0, Failed: 1].
+    2021-03-02 06:12:19    ERROR   Unsuccessful command execution on instance id(s) 'i-0684f146b291b7920'. Aborting the operation.
+    2021-03-02 06:12:19    ERROR   Failed to deploy application.
+
+5. requirements.txt 재생성
+    기존에 있던 requirements.txt 삭제후
+    pipenv install pipenv-to-requirements (새환경이라 없을것 같아서 설치)
+    pipenv lock -r > requirements.txt
+
+    그리고 eb deploy, 똑같은 에러 발생
+    2021-03-02 06:17:39    ERROR   Your requirements.txt is invalid. Snapshot your logs for details.
+    2021-03-02 06:17:42    ERROR   [Instance: i-0684f146b291b7920] Command failed on instance. Return code: 1 Output: (TRUNCATED)...)
+    File "/usr/lib64/python2.7/subprocess.py", line 190, in check_call
+        raise CalledProcessError(retcode, cmd)
+    CalledProcessError: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1.
+    Hook /opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py failed. For more detail, check /var/log/eb-activity.log using console or EB CLI.
+    2021-03-02 06:17:42    INFO    Command execution completed on all instances. Summary: [Successful: 0, Failed: 1].
+    2021-03-02 06:17:43    ERROR   Unsuccessful command execution on instance id(s) 'i-0684f146b291b7920'. Aborting the operation.
+    2021-03-02 06:17:43    ERROR   Failed to deploy application.
+
+    eb logs-all 해서 eb-activity.log 를 보니
+                    =============================DEBUG ASSISTANCE==========================
+                    If you are seeing an error here please try the following to
+                    successfully install cryptography:
+            
+                    Upgrade to the latest pip and try again. This will fix errors for most
+                    users. See: https://pip.pypa.io/en/stable/installing/#upgrading-pip
+                    =============================DEBUG ASSISTANCE==========================
+            
+            Traceback (most recent call last):
+                File "<string>", line 1, in <module>
+                File "/tmp/pip-build-5znpjee6/cryptography/setup.py", line 14, in <module>
+                from setuptools_rust import RustExtension
+            ModuleNotFoundError: No module named 'setuptools_rust'
+            
+            ----------------------------------------
+        Command "python setup.py egg_info" failed with error code 1 in /tmp/pip-build-5znpjee6/cryptography/
+        You are using pip version 9.0.1, however version 21.0.1 is available.
+        You should consider upgrading via the 'pip install --upgrade pip' command.
+        2021-03-02 06:17:39,459 ERROR    Error installing dependencies: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1
+        Traceback (most recent call last):
+            File "/opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py", line 22, in main
+            install_dependencies()
+            File "/opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py", line 18, in install_dependencies
+            check_call('%s install -r %s' % (os.path.join(APP_VIRTUAL_ENV, 'bin', 'pip'), requirements_file), shell=True)
+            File "/usr/lib64/python2.7/subprocess.py", line 190, in check_call
+            raise CalledProcessError(retcode, cmd)
+        CalledProcessError: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1 (Executor::NonZeroExitStatus)
+
+
+        [2021-03-02T06:17:39.466Z] INFO  [3792]  - [Application update app-27e9e-210302_151636@3/AppDeployStage0/AppDeployPreHook/03deploy.py] : Activity failed.
+        [2021-03-02T06:17:39.466Z] INFO  [3792]  - [Application update app-27e9e-210302_151636@3/AppDeployStage0/AppDeployPreHook] : Activity failed.
+        [2021-03-02T06:17:39.466Z] INFO  [3792]  - [Application update app-27e9e-210302_151636@3/AppDeployStage0] : Activity failed.
+        [2021-03-02T06:17:39.467Z] INFO  [3792]  - [Application update app-27e9e-210302_151636@3] : Completed activity. Result:
+        Application update - Command CMD-AppDeploy failed
+        [2021-03-02T06:18:45.926Z] INFO  [3971]  - [CMD-BundleLogs] : Starting activity...
+        [2021-03-02T06:18:45.926Z] INFO  [3971]  - [CMD-BundleLogs/AddonsBefore] : Starting activity...
+        [2021-03-02T06:18:45.926Z] INFO  [3971]  - [CMD-BundleLogs/AddonsBefore] : Completed activity.
+        [2021-03-02T06:18:45.926Z] INFO  [3971]  - [CMD-BundleLogs/BundleLogs] : Starting activity...
+        [2021-03-02T06:18:45.926Z] INFO  [3971]  - [CMD-BundleLogs/BundleLogs/BundleLogs] : Starting activity...
