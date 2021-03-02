@@ -87,3 +87,4 @@
 
 * .ebextensions/django.config에
     migrate, options_setting이 Linux2 용으로 되어있어서 수정후 다시 eb deploy
+    deploy로 Elastic Beanstalk 구성이 안바껴서 수동으로 config/wsgi.py로 변경했음
