@@ -1,19 +1,11 @@
 branch-defaults:
-  default:
-    environment: null
-    group_suffix: null
   main:
-    environment: airbnb-clone
-    group_suffix: null
-environment-defaults:
-  airbnb-clone:
-    branch: null
-    repository: null
+    environment: null
 global:
   application_name: air_bnb_clone_integrity
   branch: null
   default_ec2_keyname: null
-  default_platform: Python 3.7 running on 64bit Amazon Linux 2
+  default_platform: Python 3.6 running on 64bit Amazon Linux
   default_region: ap-northeast-2
   include_git_submodules: true
   instance_profile: null
