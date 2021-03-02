@@ -84,3 +84,6 @@
         [2021-03-02T06:18:45.926Z] INFO  [3971]  - [CMD-BundleLogs/AddonsBefore] : Completed activity.
         [2021-03-02T06:18:45.926Z] INFO  [3971]  - [CMD-BundleLogs/BundleLogs] : Starting activity...
         [2021-03-02T06:18:45.926Z] INFO  [3971]  - [CMD-BundleLogs/BundleLogs/BundleLogs] : Starting activity...
+
+* .ebextensions/django.config에
+    migrate, options_setting이 Linux2 용으로 되어있어서 수정후 다시 eb deploy
